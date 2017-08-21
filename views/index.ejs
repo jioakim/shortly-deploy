@@ -6,6 +6,10 @@
   });
 </script>
 
+<% if (process.env.PRODUCTION) {%>
+<script src='/dist/build.min.js'></script>
+<% console.log ('inside production'); %>
+<% } else { %>
 <script src='/client/app.js'></script>
 <script src='/client/link.js'></script>
 <script src='/client/links.js'></script>
@@ -13,3 +17,4 @@
 <script src='/client/linksView.js'></script>
 <script src='/client/createLinkView.js'></script>
 <script src='/client/router.js'></script>
+<% } %>

@@ -140,18 +140,27 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('upload', function(n) {
-    if (grunt.option('prod')) {
+    if (grunt.option('prod')) {// grunt upload --prod
       // add your production server task here
+      //add our environmental variable?
+      process.env.PRODUCTION = true;
     } else {
       grunt.task.run([ 'server-dev' ]);
     }
   });
 
-  grunt.registerTask('deploy', [
-    // add your deploy tasks here
-    'build',
-    'git-batch'
-  ]);
+  grunt.registerTask('deploy', function(n) {
+    if (grunt.option('prod')) {
+      grunt.task.run([
+        'build',
+        'git-batch',
+        'upload'
+        ]);
+    } else {
+      grunt.task.run([ 'server-dev' ]);
+    }
+  });
+
 
 
 };
