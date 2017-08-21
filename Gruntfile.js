@@ -79,6 +79,24 @@ module.exports = function(grunt) {
       }
     },
 
+    gitcommit: {
+      your_target: {
+        options: {
+        // Target-specific options go here.
+        }
+      }
+    },
+
+    gitpush: {
+      your_target: {
+        options: {
+        // Target-specific options go here.
+          remote: 'deploy',
+          branch: 'master'
+        }
+      }
+    },
+
     shell: {
       prodServer: {
       }
@@ -109,9 +127,16 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build', [
     'eslint',
+    'test',
     'concat',
     'uglify',
     'cssmin'
+  ]);
+
+  grunt.registerTask('git-batch', [
+    'gitadd',
+    'gitcommit',
+    'gitpush'
   ]);
 
   grunt.registerTask('upload', function(n) {
@@ -124,6 +149,8 @@ module.exports = function(grunt) {
 
   grunt.registerTask('deploy', [
     // add your deploy tasks here
+    'build',
+    'git-batch'
   ]);
 
 
